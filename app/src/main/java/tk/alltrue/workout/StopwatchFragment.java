@@ -20,14 +20,17 @@ public class StopwatchFragment extends Fragment {
         if (savedInstanceState != null) {
             seconds = savedInstanceState.getInt("seconds");
             running = savedInstanceState.getBoolean("running");
+            wasRunning = savedInstanceState.getBoolean("wasRunning");
+            if (wasRunning) {
+                running = true;
+            }
         }
-        runTimer();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View layout = inflater.inflate(R.layout.fragment_stopwatch, container, false);
-        runTimer();
+        runTimer(layout);
         return layout;
     }
 
