@@ -2,6 +2,7 @@ package tk.alltrue.workout;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,8 +14,15 @@ public class WorkoutDetailFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        if(savedInstanceState != null) {
+        if (savedInstanceState != null) {
             workoutId = savedInstanceState.getLong("workoutId");
+        } else {
+            FragmentTransaction ft = getChildFragmentManager().beginTransaction();
+            StopwatchFragment stopwatchFragment = new StopwatchFragment();
+            ft.replace(R.id.stopwatch_container, stopwatchFragment);
+            ft.addToBackStack(null);
+            ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+            ft.commit();
         }
         return inflater.inflate(R.layout.fragment_workout_detail, container, false);
     }
